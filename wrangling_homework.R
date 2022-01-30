@@ -71,7 +71,7 @@ ds_sum <- ds %>% summarise(earliest=min(Year, na.rm=TRUE), most_recent=max(Year,
 # Use one filter command only, and sort the responses by year
 
 #ANSWER
-
+ds3 <- ds %>% filter(Year %in% c("1879","2020","1980")) %>% select(Artist, Song, Year) %>% arrange(Year)
 
 ### Question 8 ---------- 
 
@@ -82,7 +82,10 @@ ds_sum <- ds %>% summarise(earliest=min(Year, na.rm=TRUE), most_recent=max(Year,
 # find the correct oldest, averag-ist, and most recent songs
 
 #ANSWER
-
+ds$Year <- as.numeric(as.character(ds$Year)) 
+ds <- ds %>% mutate(Year=ifelse(Year=='1879',"1979", Year)) %>% mutate(decade=Year) %>% mutate(decade = floor(ds$decade/10)*10)
+ds_sum <- ds %>% summarise(earliest=min(Year, na.rm=TRUE), most_recent=max(Year, na.rm=TRUE), average_release_year=mean(Year, na.rm=TRUE))
+dsQ7 <- ds %>% filter(Year %in% c("1937","2020","1980")) %>% select(Artist, Song, Year) %>% arrange(Year)
 
 ### Question 9 ---------
 
@@ -93,7 +96,7 @@ ds_sum <- ds %>% summarise(earliest=min(Year, na.rm=TRUE), most_recent=max(Year,
 # Use the pipe %>% to string the commands together
 
 #ANSWER
-
+ds %>% drop_na(decade) %>% group_by(decade) %>% summarise(average_rank=mean(Rank), number_of_songs=n())
 
 ### Question 10 --------
 
@@ -103,5 +106,5 @@ ds_sum <- ds %>% summarise(earliest=min(Year, na.rm=TRUE), most_recent=max(Year,
 # Use the pipe %>% to string the commands together
 
 #ANSWER
-
+ds %>% drop_na(decade) %>% count(decade) %>% slice_max(n)
   
