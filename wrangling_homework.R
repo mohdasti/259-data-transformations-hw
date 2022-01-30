@@ -29,7 +29,8 @@ typeof(ds$Year) # now it returns "double"
 # change ds so that all of the variables are lowercase
 
 #ANSWER
-ds %>% 
+ds %>% rename_with(tolower) # now rank, song, artist, and year are all lowercase
+
 ### Question 3 ----------
 
 # Use mutate to create a new variable in ds that has the decade of the year as a number
@@ -37,7 +38,9 @@ ds %>%
 # Hint: read the documentation for ?floor
 
 #ANSWER
-
+#ds <- ds %>% mutate(decade=Year)
+#ds$decade <- floor(ds$decade/10)*10 
+ds <- ds %>% mutate(decade=Year) %>% mutate(decade = floor(ds$decade/10)*10)
 ### Question 4 ----------
 
 # Sort the dataset by rank so that 1 is at the top
