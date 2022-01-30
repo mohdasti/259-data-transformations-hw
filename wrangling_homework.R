@@ -40,20 +40,21 @@ ds %>% rename_with(tolower) # now rank, song, artist, and year are all lowercase
 #ANSWER
 #ds <- ds %>% mutate(decade=Year)
 #ds$decade <- floor(ds$decade/10)*10 
-ds <- ds %>% mutate(decade=Year) %>% mutate(decade = floor(ds$decade/10)*10)
+ds <- ds %>% mutate(decade=Year)
+ds <- ds %>% mutate(decade = floor(ds$decade/10)*10)
 ### Question 4 ----------
 
 # Sort the dataset by rank so that 1 is at the top
 
 #ANSWER
-
+ds %>% arrange(Rank)
 ### Question 5 ----------
 
 # Use filter and select to create a new tibble called 'top10'
 # That just has the artists and songs for the top 10 songs
 
 #ANSWER
-
+top10 <- ds %>% filter(Rank<11) %>% select(Artist, Song)
 
 ### Question 6 ----------
 
@@ -61,7 +62,7 @@ ds <- ds %>% mutate(decade=Year) %>% mutate(decade = floor(ds$decade/10)*10)
 # of all songs on the full list. Save it to a new tibble called "ds_sum"
 
 #ANSWER
-
+ds_sum <- ds %>% summarise(earliest=min(Year, na.rm=TRUE), most_recent=max(Year, na.rm=TRUE), average_release_year=mean(Year, na.rm=TRUE))
 
 ### Question 7 ----------
 
