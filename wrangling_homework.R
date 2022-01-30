@@ -3,6 +3,8 @@
 
 #List names of students collaborating with: 
 
+#### MOHAMMAD DASTGHEIB (only me) ####
+
 ### SETUP: RUN THIS BEFORE STARTING ----------
 
 #Load packages
@@ -16,7 +18,10 @@ ds <- read_csv("data_raw/rolling_stone_500.csv")
 #Use typeof to check that your conversion succeeded
 
 #ANSWER
-
+glimpse(ds)
+## The type of "Year" is character
+ds$Year <- as.numeric(as.character(ds$Year)) 
+typeof(ds$Year) # now it returns "double"
 
 ### Question 2 ---------- 
 
@@ -24,7 +29,7 @@ ds <- read_csv("data_raw/rolling_stone_500.csv")
 # change ds so that all of the variables are lowercase
 
 #ANSWER
-
+ds %>% 
 ### Question 3 ----------
 
 # Use mutate to create a new variable in ds that has the decade of the year as a number
